@@ -1,10 +1,12 @@
 import { Row, Col, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import Title from '../components/Title';
 import '../styles/Home.css';
 
 function Home() {
   return (
     <Row>
+      <Title title="Chat App"/>
       <Col
         md={6}
         className="d-flex flex-direction-column align-items-center justify-content-center"

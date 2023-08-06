@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AppContext } from '../context/appContext';
+import {isValidTextMessage, getFormattedDate} from '../features/utils';
 import '../styles/MessageForm.css';
 
 function MessageForm() {
@@ -14,18 +15,10 @@ function MessageForm() {
     scrollToBottom();
   }, [messages]);
 
-  function getFormattedDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    let month = (1 + date.getMonth()).toString();
-    month = month.length > 1 ? month : '0' + month;
-    let day = date.getDate().toString();
-    day = day.length > 1 ? day : '0' + day;
-    return month + '/' + day + '/' + year;
-  }
   function scrollToBottom() {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
+  
   const todayDate = getFormattedDate();
   socket.off('room-messages').on('room-messages', (roomMessages) => {
     setMessages(roomMessages);
@@ -34,6 +27,7 @@ function MessageForm() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!message) return;
+    if (!isValidTextMessage(message)) return;
     const today = new Date();
     const minutes =
       today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes();

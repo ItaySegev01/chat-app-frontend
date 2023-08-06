@@ -1,10 +1,12 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar';
 import MessageForm from '../components/MessageForm';
+import Title from '../components/Title';
 
 function Chat() {
   return (
     <Container>
+      <Title title='Chat'/>
       <Row>
         <Col md={4}>
           <Sidebar />

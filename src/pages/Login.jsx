@@ -4,6 +4,7 @@ import { useLoginUserMutation } from '../services/appApi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/appContext';
 import '../styles/Login.css';
+import Title from '../components/Title';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ function Login() {
   const navigate = useNavigate();
   const { socket } = useContext(AppContext);
   const [loginUser, { isLoading, error }] = useLoginUserMutation();
+
   function handleLogin(e) {
     e.preventDefault();
     // login logic
@@ -26,6 +28,7 @@ function Login() {
 
   return (
     <Container>
+      <Title title='Login'/> 
       <Row>
         <Col md={5} className="login__bg"></Col>
         <Col
@@ -34,6 +37,11 @@ function Login() {
         >
           <Form style={{ width: '80%', maxWidth: 500 }} onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
+              <h1 className="d-flex mb-4 text-center">Login</h1>
+              <p className="h5 mb-4 d-flex">
+                this is a demo app , you may use: <br /> email:
+                admin@example.com <br /> password: 102030
+              </p>
               {error && <p className="alert alert-danger">{error.data}</p>}
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -63,7 +71,7 @@ function Login() {
             </Button>
             <div className="py-4">
               <p className="text-center">
-                Don't have an account ? <Link to="/signup">Signup</Link>
+                Don't have an account ? <Link to="/signup">Sign up</Link>
               </p>
             </div>
           </Form>

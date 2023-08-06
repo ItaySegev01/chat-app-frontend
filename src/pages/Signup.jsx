@@ -5,8 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Signup.css';
 import botImg from '../assets/bot.jpeg';
 import { toast } from 'react-toastify';
+import Title from '../components/Title';
 
 function Signup() {
+  const a = import.meta.env.USER_NAME;
+  console.log(a);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -35,7 +38,7 @@ function Signup() {
     try {
       setUploadingImg(true);
       let res = await fetch(
-        'https://api.cloudinary.com/v1_1/dr6inmkmg/image/upload',
+        'https://api.cloudinary.com/v1_1/user_name/image/upload',
         {
           method: 'post',
           body: data,
@@ -52,13 +55,14 @@ function Signup() {
 
   async function handleSignup(e) {
     e.preventDefault();
-    if (!image) return alert('Please upload your profile picture');
+    if (!image) {
+      toast.error('Please upload your profile picture');
+      return;
+    }
     const url = await uploadImage(image);
-    console.log(url);
     // signup the user
     signupUser({ name, email, password, picture: url }).then(({ data }) => {
       if (data) {
-        console.log(data);
         navigate('/chat');
       }
     });
@@ -66,6 +70,7 @@ function Signup() {
 
   return (
     <Container>
+      <Title title="Sign Up"/>
       <Row>
         <Col
           md={7}
