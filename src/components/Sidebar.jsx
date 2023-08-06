@@ -3,6 +3,7 @@ import { Col, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppContext } from '../context/appContext';
 import { addNotifications, resetNotifications } from '../features/userSlice';
+import { API_URL } from '../context/appContext';
 import '../styles/Sidebar.css';
 
 function Sidebar() {
@@ -52,7 +53,7 @@ function Sidebar() {
   });
 
   function getRooms() {
-    fetch('http://localhost:5000/rooms')
+    fetch(API_URL+'/api/rooms')
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }

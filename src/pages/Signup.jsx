@@ -13,7 +13,7 @@ function Signup() {
   const navigate = useNavigate();
   //image upload states
   const [image, setImage] = useState(null);
-  const [upladingImg, setUploadingImg] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
   function validateImg(e) {
@@ -29,7 +29,7 @@ function Signup() {
   async function uploadImage() {
     const data = new FormData();
     data.append('file', image);
-    data.append('upload_preset', 'your-preset-here');
+    data.append('upload_preset', 'eflpe1uh');
     try {
       setUploadingImg(true);
       let res = await fetch(
@@ -120,7 +120,7 @@ function Signup() {
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              {upladingImg || isLoading ? 'Signing you up...' : 'Sign Up'}
+              {uploadingImg || isLoading ? 'Signing you up...' : 'Sign Up'}
             </Button>
             <div className="py-4">
               <p className="text-center">
