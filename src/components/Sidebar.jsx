@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppContext } from '../context/appContext';
 import { addNotifications, resetNotifications } from '../features/userSlice';
 import { API_URL } from '../context/appContext';
+import { toast } from 'react-toastify';
 import '../styles/Sidebar.css';
 
 function Sidebar() {
@@ -23,7 +24,8 @@ function Sidebar() {
 
   function joinRoom(room, isPublic = true) {
     if (!user) {
-      return alert('Please login');
+      toast.error('Please login');
+      return;
     }
     socket.emit('join-room', room, currentRoom);
     setCurrentRoom(room);
@@ -53,7 +55,7 @@ function Sidebar() {
   });
 
   function getRooms() {
-    fetch(API_URL+'/api/rooms')
+    fetch(API_URL + '/api/rooms')
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }

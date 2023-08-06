@@ -4,6 +4,7 @@ import { useSignupUserMutation } from '../services/appApi';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Signup.css';
 import botImg from '../assets/bot.jpeg';
+import { toast } from 'react-toastify';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -19,7 +20,8 @@ function Signup() {
   function validateImg(e) {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
-      return alert('Max file size is 1mb');
+      toast.error('Max file size is 1mb');
+      return;
     } else {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
